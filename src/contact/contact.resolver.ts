@@ -27,7 +27,7 @@ export class ContactResolver {
   }
 
   @Query(() => [Contact], { name: 'Contact' })
-  findAll() {
+  findAll():Promise<Contact[]> {
     return this.ContactService.findAll();
   }
 

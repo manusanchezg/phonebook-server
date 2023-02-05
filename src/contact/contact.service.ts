@@ -14,6 +14,7 @@ export class ContactService {
     @InjectRepository(Contact)
     private readonly contactRepositry: Repository<Contact>,
   ) {}
+
   async create(
     @Args('createContactInput')
     createContactInput: CreateContactInput,
@@ -25,8 +26,8 @@ export class ContactService {
     return await this.contactRepositry.save(contact)
   }
 
-  findAll() {
-    return `This action returns all Contact`;
+  findAll():Promise<Contact[]> {
+    return this.contactRepositry.find()
   }
 
   findOne(id: number) {
