@@ -1,4 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { Blob } from 'buffer';
 import { PhoneNumber } from 'src/phonebook/entities';
 
 @InputType()

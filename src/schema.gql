@@ -3,8 +3,8 @@
 # ------------------------------------------------------
 
 type Phonebook {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """UUID of the contact"""
+  id: ID!
 }
 
 type Query {
@@ -18,12 +18,42 @@ type Mutation {
 }
 
 input CreatePhonebookInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """First name of the contact"""
+  firstName: String!
+
+  """Last name of the contact"""
+  lastName: String!
+
+  """Nickname of the contact (optional)"""
+  nickname: String
+
+  """List of phone numbers of the contact, at least one phone number"""
+  phoneNumbers: String!
+
+  """Address of the contact"""
+  address: String!
+
+  """Last name of the contact"""
+  photo: String!
 }
 
 input UpdatePhonebookInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  """First name of the contact"""
+  firstName: String
+
+  """Last name of the contact"""
+  lastName: String
+
+  """Nickname of the contact (optional)"""
+  nickname: String
+
+  """List of phone numbers of the contact, at least one phone number"""
+  phoneNumbers: String
+
+  """Address of the contact"""
+  address: String
+
+  """Last name of the contact"""
+  photo: String
   id: Int!
 }
