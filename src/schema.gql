@@ -5,6 +5,15 @@
 type Phonebook {
   """UUID of the contact"""
   id: ID!
+
+  """First name of the Contact"""
+  firstName: String!
+
+  """Last name of the Contact"""
+  lastName: String!
+
+  """Nickname of the Contact"""
+  nickname: String
 }
 
 type Query {

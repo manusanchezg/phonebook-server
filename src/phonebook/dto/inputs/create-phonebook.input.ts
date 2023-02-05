@@ -20,7 +20,7 @@ export class CreatePhonebookInput {
   })
   nickname?: string;
 
-  @Field(() => String, {
+  @Field(() => Array<PhoneNumber>, {
     description:
       'List of phone numbers of the contact, at least one phone number',
   })
