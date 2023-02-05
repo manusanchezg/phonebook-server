@@ -16,10 +16,11 @@ type Contact {
   nickname: String
 
   """List of number of the Contact"""
-  phoneNumbers: [Float!]!
+  phoneNumbers: [Int!]!
 }
 
 type Query {
+  contacts: [Contact!]!
   Contact(id: Int!): Contact!
 }
 
