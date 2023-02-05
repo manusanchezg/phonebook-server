@@ -4,6 +4,7 @@ import {
   Mutation,
   Args,
   Int,
+  ID,
 } from '@nestjs/graphql';
 import { ContactService } from './contact.service';
 import { Contact } from './entities/contact.entity';
@@ -11,6 +12,7 @@ import {
   UpdateContactInput,
   CreateContactInput,
 } from './dto/inputs';
+import { ParseUUIDPipe } from '@nestjs/common';
 
 @Resolver(() => Contact)
 export class ContactResolver {
@@ -32,7 +34,7 @@ export class ContactResolver {
   }
 
   @Query(() => Contact, { name: 'Contact' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => ID }, ParseUUIDPipe) id: string): Promise<Contact> {
     return this.ContactService.findOne(id);
   }
 
@@ -40,7 +42,7 @@ export class ContactResolver {
   updateContact(
     @Args('updateContactInput')
     updateContactInput: UpdateContactInput,
-  ) {
+  ): Promise<Contact> {
     return this.ContactService.update(
       updateContactInput.id,
       updateContactInput,

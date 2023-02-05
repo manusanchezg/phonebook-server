@@ -1,4 +1,4 @@
-import { ID, ObjectType, Field, Int } from '@nestjs/graphql';
+import { ID, ObjectType, Field } from '@nestjs/graphql';
 import {
   Column,
   Entity,
@@ -31,10 +31,15 @@ export class Contact {
   @Column({ nullable: true })
   nickname?: string;
 
-  @Field(() => [Int], {
+  @Field(() => [Number], {
     description: 'List of number of the Contact',
   })
   @Column("text", {array: true})
   phoneNumbers: number[];
   
+  @Field(() => String, {
+    description: 'A picture of the contact',
+  })
+  @Column()
+  photo: string;
 }

@@ -16,12 +16,15 @@ type Contact {
   nickname: String
 
   """List of number of the Contact"""
-  phoneNumbers: [Int!]!
+  phoneNumbers: [Float!]!
+
+  """A picture of the contact"""
+  photo: String!
 }
 
 type Query {
   contacts: [Contact!]!
-  Contact(id: Int!): Contact!
+  Contact(id: ID!): Contact!
 }
 
 type Mutation {
@@ -68,5 +71,5 @@ input UpdateContactInput {
 
   """Last name of the contact"""
   photo: String
-  id: Int!
+  id: ID!
 }

@@ -1,4 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Args } from '@nestjs/graphql';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -22,23 +25,34 @@ export class ContactService {
     const contact = this.contactRepositry.create(
       createContactInput,
     );
-      console.log(await this.contactRepositry.save(contact))
-    return await this.contactRepositry.save(contact)
+    return await this.contactRepositry.save(contact);
   }
 
-  findAll():Promise<Contact[]> {
-    return this.contactRepositry.find()
+  async findAll(): Promise<Contact[]> {
+    return this.contactRepositry.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} Contact`;
+  async findOne(id: string): Promise<Contact> {
+    const contact = await this.contactRepositry.findOneBy({
+      id,
+    });
+    if (!contact)
+      throw new NotFoundException(
+        `Item with id #${id} not found`,
+      );
+    return contact;
   }
 
-  update(
-    id: number,
+  async update(
+    id: string,
     updateContactInput: UpdateContactInput,
-  ) {
-    return `This action updates a #${id} Contact`;
+  ): Promise<Contact> {
+    const contact = await this.contactRepositry.preload(updateContactInput)
+    if (!contact)
+    throw new NotFoundException(
+      `Item with id #${id} not found`,
+    );
+    return this.contactRepositry.save(contact)
   }
 
   remove(id: number) {
