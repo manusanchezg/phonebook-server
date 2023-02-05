@@ -6,6 +6,7 @@ import {
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { PhonebookModule } from './phonebook/phonebook.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault],
     }),
+    PhonebookModule,
   ],
 })
 export class AppModule {}
