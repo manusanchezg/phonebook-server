@@ -1,2 +1,2 @@
-export * from "./create-phonebook.input"
-export * from "./update-phonebook.input"
+export * from "./create-contact.input"
+export * from "./update-contact.input"

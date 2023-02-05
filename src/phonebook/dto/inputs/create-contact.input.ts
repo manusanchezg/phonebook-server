@@ -1,9 +1,8 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import { Blob } from 'buffer';
-import { PhoneNumber } from 'src/phonebook/entities';
 
 @InputType()
-export class CreatePhonebookInput {
+export class CreateContactInput {
   @Field(() => String, {
     description: 'First name of the contact',
   })
@@ -20,11 +19,11 @@ export class CreatePhonebookInput {
   })
   nickname?: string;
 
-  @Field(() => Array<PhoneNumber>, {
+  @Field(() => [Number], {
     description:
       'List of phone numbers of the contact, at least one phone number',
   })
-  phoneNumbers: Array<PhoneNumber>; // [PhoneNumber] ? possible?
+  phoneNumbers: number[]; // [PhoneNumber] ? possible?
 
   @Field(() => String, {
     description: 'Address of the contact',

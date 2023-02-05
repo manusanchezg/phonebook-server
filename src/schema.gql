@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Phonebook {
+type Contact {
   """UUID of the contact"""
   id: ID!
 
@@ -14,19 +14,22 @@ type Phonebook {
 
   """Nickname of the Contact"""
   nickname: String
+
+  """List of number of the Contact"""
+  phoneNumbers: [Float!]!
 }
 
 type Query {
-  phonebook(id: Int!): Phonebook!
+  Contact(id: Int!): Contact!
 }
 
 type Mutation {
-  createPhonebook(createPhonebookInput: CreatePhonebookInput!): Phonebook!
-  updatePhonebook(updatePhonebookInput: UpdatePhonebookInput!): Phonebook!
-  removePhonebook(id: Int!): Phonebook!
+  createContact(createContactInput: CreateContactInput!): Contact!
+  updateContact(updateContactInput: UpdateContactInput!): Contact!
+  removeContact(id: Int!): Contact!
 }
 
-input CreatePhonebookInput {
+input CreateContactInput {
   """First name of the contact"""
   firstName: String!
 
@@ -37,7 +40,7 @@ input CreatePhonebookInput {
   nickname: String
 
   """List of phone numbers of the contact, at least one phone number"""
-  phoneNumbers: String!
+  phoneNumbers: [Float!]!
 
   """Address of the contact"""
   address: String!
@@ -46,7 +49,7 @@ input CreatePhonebookInput {
   photo: String!
 }
 
-input UpdatePhonebookInput {
+input UpdateContactInput {
   """First name of the contact"""
   firstName: String
 
@@ -57,7 +60,7 @@ input UpdatePhonebookInput {
   nickname: String
 
   """List of phone numbers of the contact, at least one phone number"""
-  phoneNumbers: String
+  phoneNumbers: [Float!]
 
   """Address of the contact"""
   address: String

@@ -3,13 +3,11 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  OneToMany
 } from 'typeorm';
-import { PhoneNumber } from './contact-number.entity';
 
 @ObjectType()
-@Entity()
-export class Phonebook {
+@Entity({name: "contacts"})
+export class Contact {
   @Field(() => ID, { description: 'UUID of the contact' })
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -33,9 +31,10 @@ export class Phonebook {
   @Column({ nullable: true })
   nickname?: string;
 
-  @Field(() => Array<PhoneNumber>, {
+  @Field(() => [Number], {
     description: 'List of number of the Contact',
   })
-  @OneToMany(type => PhoneNumber, phoneNumber => phoneNumber.phoneNumber)
-  phoneNumbers: PhoneNumber[];
+  @Column("text", {array: true})
+  phoneNumbers: number[];
+  
 }

@@ -8,7 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
-import { PhonebookModule } from './phonebook/phonebook.module';
+import { ContactModule } from './phonebook/contact.module';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { PhonebookModule } from './phonebook/phonebook.module';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    PhonebookModule,
+    ContactModule,
   ],
 })
 export class AppModule {}
