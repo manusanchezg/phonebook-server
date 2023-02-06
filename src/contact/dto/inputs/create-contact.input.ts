@@ -4,6 +4,8 @@ import {
   IsPhoneNumber,
   IsString,
 } from 'class-validator';
+import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
+import { FileUpload } from 'src/contact/entities';
 
 @InputType()
 export class CreateContactInput {
@@ -44,11 +46,11 @@ export class CreateContactInput {
   @IsString()
   address: string;
 
-  @Field(() => String, {
+  @Field(() => GraphQLUpload, {
     description: 'Last name of the contact',
   })
   @IsNotEmpty()
   @IsString()
   // Need to chec the image //
-  photo: string;
+  photo: Promise<FileUpload>;
 }

@@ -50,9 +50,11 @@ export class ContactResolver {
   }
 
   @Mutation(() => Contact)
-  removeContact(
-    @Args('id', { type: () => Int }) id: number,
+  async removeContact(
+    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,
   ) {
-    return this.ContactService.remove(id);
+    const contact = await this.findOne(id);
+    await this.ContactService.remove(id);
+    return {...contact, id}
   }
 }

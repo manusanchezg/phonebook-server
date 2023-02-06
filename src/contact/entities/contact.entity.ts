@@ -1,9 +1,11 @@
 import { ID, ObjectType, Field } from '@nestjs/graphql';
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { FileUpload } from './file-upload.entity';
 
 @ObjectType()
 @Entity({name: "contacts"})
@@ -42,4 +44,7 @@ export class Contact {
   })
   @Column()
   photo: string;
+
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }

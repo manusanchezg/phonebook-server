@@ -30,7 +30,7 @@ type Query {
 type Mutation {
   createContact(createContactInput: CreateContactInput!): Contact!
   updateContact(updateContactInput: UpdateContactInput!): Contact!
-  removeContact(id: Int!): Contact!
+  removeContact(id: ID!): Contact!
 }
 
 input CreateContactInput {
@@ -50,8 +50,11 @@ input CreateContactInput {
   address: String!
 
   """Last name of the contact"""
-  photo: String!
+  photo: Upload!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 input UpdateContactInput {
   """First name of the contact"""
@@ -70,6 +73,6 @@ input UpdateContactInput {
   address: String
 
   """Last name of the contact"""
-  photo: String
+  photo: Upload
   id: ID!
 }

@@ -1,9 +1,13 @@
 import {
+  HttpException,
+  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { Args } from '@nestjs/graphql';
 import { InjectRepository } from '@nestjs/typeorm';
+import { createWriteStream } from 'fs';
+import { join } from 'path';
 import { Repository } from 'typeorm';
 import {
   UpdateContactInput,
@@ -22,10 +26,40 @@ export class ContactService {
     @Args('createContactInput')
     createContactInput: CreateContactInput,
   ): Promise<Contact> {
-    const contact = this.contactRepositry.create(
+    return this.uploadFile(
+      this.contactRepositry.create,
       createContactInput,
     );
-    return await this.contactRepositry.save(contact);
+  }
+
+  private async uploadFile(
+    callback: Function,
+    contactInput,
+  ): Promise<Contact> {
+    const { createReadStream, filename } =
+      await contactInput.photo;
+    return new Promise(async (resolve) => {
+      createReadStream()
+        .pipe(
+          createWriteStream(
+            join(process.cwd(), `./src/upload/${filename}`),
+          ),
+        )
+        .on('finish', () =>
+          resolve(
+            callback({
+              ...contactInput,
+              photo: filename,
+            }),
+          ),
+        )
+        .on('error', () => {
+          throw new HttpException(
+            'Could not save the image',
+            HttpStatus.BAD_REQUEST,
+          );
+        });
+    });
   }
 
   async findAll(): Promise<Contact[]> {
@@ -47,15 +81,18 @@ export class ContactService {
     id: string,
     updateContactInput: UpdateContactInput,
   ): Promise<Contact> {
-    const contact = await this.contactRepositry.preload(updateContactInput)
-    if (!contact)
-    throw new NotFoundException(
-      `Item with id #${id} not found`,
+    const contact = await this.uploadFile(
+      this.contactRepositry.preload,
+      updateContactInput,
     );
-    return this.contactRepositry.save(contact)
+    if (!contact)
+      throw new NotFoundException(
+        `Item with id #${id} not found`,
+      );
+    return this.contactRepositry.save(contact);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} Contact`;
+  remove(id: string) {
+    return this.contactRepositry.softDelete(id);
   }
 }
