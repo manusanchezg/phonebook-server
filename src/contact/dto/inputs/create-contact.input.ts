@@ -34,6 +34,7 @@ export class CreateContactInput {
   })
   @IsNotEmpty()
   // @IsPhoneNumber()
+  // -------- Need to Check the number ---------- //
   phoneNumbers: number[]; // [PhoneNumber] ? possible?
 
   @Field(() => String, {
@@ -48,5 +49,6 @@ export class CreateContactInput {
   })
   @IsNotEmpty()
   @IsString()
+  // Need to chec the image //
   photo: string;
 }
