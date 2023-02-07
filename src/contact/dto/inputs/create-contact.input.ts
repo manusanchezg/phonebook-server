@@ -5,7 +5,6 @@ import {
   IsString,
 } from 'class-validator';
 import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
-import { FileUpload } from 'src/contact/entities';
 
 @InputType()
 export class CreateContactInput {
@@ -52,5 +51,5 @@ export class CreateContactInput {
   @IsNotEmpty()
   @IsString()
   // Need to chec the image //
-  photo: Promise<FileUpload>;
+  photo: string;
 }

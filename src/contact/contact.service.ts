@@ -22,44 +22,15 @@ export class ContactService {
     private readonly contactRepositry: Repository<Contact>,
   ) {}
 
+  
   async create(
     @Args('createContactInput')
     createContactInput: CreateContactInput,
   ): Promise<Contact> {
-    return this.uploadFile(
-      this.contactRepositry.create,
+    const contact = this.contactRepositry.create(
       createContactInput,
     );
-  }
-
-  private async uploadFile(
-    callback: Function,
-    contactInput,
-  ): Promise<Contact> {
-    const { createReadStream, filename } =
-      await contactInput.photo;
-    return new Promise(async (resolve) => {
-      createReadStream()
-        .pipe(
-          createWriteStream(
-            join(process.cwd(), `./src/upload/${filename}`),
-          ),
-        )
-        .on('finish', () =>
-          resolve(
-            callback({
-              ...contactInput,
-              photo: filename,
-            }),
-          ),
-        )
-        .on('error', () => {
-          throw new HttpException(
-            'Could not save the image',
-            HttpStatus.BAD_REQUEST,
-          );
-        });
-    });
+    return contact;
   }
 
   async findAll(): Promise<Contact[]> {
@@ -81,8 +52,7 @@ export class ContactService {
     id: string,
     updateContactInput: UpdateContactInput,
   ): Promise<Contact> {
-    const contact = await this.uploadFile(
-      this.contactRepositry.preload,
+    const contact = await this.contactRepositry.preload(
       updateContactInput,
     );
     if (!contact)

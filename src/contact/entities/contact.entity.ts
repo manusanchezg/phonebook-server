@@ -5,7 +5,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { FileUpload } from './file-upload.entity';
 
 @ObjectType()
 @Entity({name: "contacts"})
