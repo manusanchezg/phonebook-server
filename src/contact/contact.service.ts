@@ -1,14 +1,14 @@
 import {
-  HttpException,
-  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { Args } from '@nestjs/graphql';
 import { InjectRepository } from '@nestjs/typeorm';
-import { createWriteStream } from 'fs';
-import { join } from 'path';
-import { Repository } from 'typeorm';
+import {
+  SearchArgs,
+  PaginationArgs,
+} from 'src/common/dto/args';
+import { Like, Repository } from 'typeorm';
 import {
   UpdateContactInput,
   CreateContactInput,
@@ -22,7 +22,6 @@ export class ContactService {
     private readonly contactRepositry: Repository<Contact>,
   ) {}
 
-  
   async create(
     @Args('createContactInput')
     createContactInput: CreateContactInput,
@@ -30,11 +29,39 @@ export class ContactService {
     const contact = this.contactRepositry.create(
       createContactInput,
     );
-    return contact;
+    return await this.contactRepositry.save(contact)
   }
 
-  async findAll(): Promise<Contact[]> {
-    return this.contactRepositry.find();
+  async findAll(
+    paginationArgs: PaginationArgs,
+    searchArgs: SearchArgs,
+  ): Promise<Contact[]> {
+    const { limit, offset } = paginationArgs;
+    const { search } = searchArgs;
+
+    const queryBuilder = this.contactRepositry
+      .createQueryBuilder()
+      .take(limit)
+      .skip(offset);
+
+    if (search)
+      queryBuilder.andWhere(
+        `LOWER("firstName") like :name OR
+         LOWER("lastName") like :name OR
+         LOWER("nickname") like :name`,
+        {
+          name: `%${search.toLocaleLowerCase()}%`,
+        },
+      );
+
+    return queryBuilder.getMany();
+    // return this.contactRepositry.find({
+    //   take: limit,
+    //   skip: offset,
+    //   where: {
+    //     firstName: Like(`%${search}%`)
+    //   }
+    // });
   }
 
   async findOne(id: string): Promise<Contact> {
@@ -47,6 +74,8 @@ export class ContactService {
       );
     return contact;
   }
+
+  private uploadImage(file) {}
 
   async update(
     id: string,

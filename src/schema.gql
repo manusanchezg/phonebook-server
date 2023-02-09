@@ -18,12 +18,15 @@ type Contact {
   """List of number of the Contact"""
   phoneNumbers: [Float!]!
 
+  """Address of the contact"""
+  address: String!
+
   """A picture of the contact"""
   photo: String!
 }
 
 type Query {
-  contacts: [Contact!]!
+  contacts(offset: Int = 0, limit: Int = 10, search: String): [Contact!]!
   Contact(id: ID!): Contact!
 }
 
@@ -50,11 +53,8 @@ input CreateContactInput {
   address: String!
 
   """Last name of the contact"""
-  photo: Upload!
+  photo: String!
 }
-
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
 
 input UpdateContactInput {
   """First name of the contact"""
@@ -73,6 +73,6 @@ input UpdateContactInput {
   address: String
 
   """Last name of the contact"""
-  photo: Upload
+  photo: String
   id: ID!
 }

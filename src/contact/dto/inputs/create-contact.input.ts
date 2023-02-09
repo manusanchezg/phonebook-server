@@ -4,7 +4,6 @@ import {
   IsPhoneNumber,
   IsString,
 } from 'class-validator';
-import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
 
 @InputType()
 export class CreateContactInput {
@@ -45,7 +44,7 @@ export class CreateContactInput {
   @IsString()
   address: string;
 
-  @Field(() => GraphQLUpload, {
+  @Field(() => String, {
     description: 'Last name of the contact',
   })
   @IsNotEmpty()

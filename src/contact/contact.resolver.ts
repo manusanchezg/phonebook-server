@@ -3,7 +3,6 @@ import {
   Query,
   Mutation,
   Args,
-  Int,
   ID,
 } from '@nestjs/graphql';
 import { ContactService } from './contact.service';
@@ -13,6 +12,7 @@ import {
   CreateContactInput,
 } from './dto/inputs';
 import { ParseUUIDPipe } from '@nestjs/common';
+import { PaginationArgs, SearchArgs } from 'src/common/dto/args';
 
 @Resolver(() => Contact)
 export class ContactResolver {
@@ -25,16 +25,22 @@ export class ContactResolver {
     @Args('createContactInput')
     createContactInput: CreateContactInput,
   ): Promise<Contact> {
-    return this.ContactService.create(createContactInput)
+    return this.ContactService.create(createContactInput);
   }
 
   @Query(() => [Contact], { name: 'contacts' })
-  findAll():Promise<Contact[]> {
-    return this.ContactService.findAll();
+  findAll(
+    @Args() paginationArgs: PaginationArgs,
+    @Args() searchArgs: SearchArgs,
+  ): Promise<Contact[]> {
+    return this.ContactService.findAll(paginationArgs, searchArgs);
   }
 
   @Query(() => Contact, { name: 'Contact' })
-  findOne(@Args('id', { type: () => ID }, ParseUUIDPipe) id: string): Promise<Contact> {
+  findOne(
+    @Args('id', { type: () => ID }, ParseUUIDPipe)
+    id: string,
+  ): Promise<Contact> {
     return this.ContactService.findOne(id);
   }
 
@@ -51,10 +57,11 @@ export class ContactResolver {
 
   @Mutation(() => Contact)
   async removeContact(
-    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,
+    @Args('id', { type: () => ID }, ParseUUIDPipe)
+    id: string,
   ) {
     const contact = await this.findOne(id);
     await this.ContactService.remove(id);
-    return {...contact, id}
+    return { ...contact, id };
   }
 }

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @ObjectType()
-@Entity({name: "contacts"})
+@Entity({ name: 'contacts' })
 export class Contact {
   @Field(() => ID, { description: 'UUID of the contact' })
   @PrimaryGeneratedColumn('uuid')
@@ -35,8 +35,14 @@ export class Contact {
   @Field(() => [Number], {
     description: 'List of number of the Contact',
   })
-  @Column("text", {array: true})
+  @Column('text', { array: true })
   phoneNumbers: number[];
+
+  @Field(() => String, {
+    description: 'Address of the contact',
+  })
+  @Column()
+  address: string;
   
   @Field(() => String, {
     description: 'A picture of the contact',

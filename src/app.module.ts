@@ -9,6 +9,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { ContactModule } from './contact/contact.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ContactModule } from './contact/contact.module';
       autoLoadEntities: true,
     }),
     ContactModule,
+    CommonModule,
   ],
 })
 export class AppModule {}
