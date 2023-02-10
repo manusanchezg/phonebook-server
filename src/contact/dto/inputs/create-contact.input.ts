@@ -12,14 +12,14 @@ export class CreateContactInput {
   })
   @IsNotEmpty()
   @IsString()
-  firstName: string;
+  first_name: string;
 
   @Field(() => String, {
     description: 'Last name of the contact',
   })
   @IsNotEmpty()
   @IsString()
-  lastName: string;
+  last_name: string;
 
   @Field(() => String, {
     description: 'Nickname of the contact (optional)',
@@ -35,7 +35,7 @@ export class CreateContactInput {
   @IsNotEmpty()
   // @IsPhoneNumber()
   // -------- Need to Check the number ---------- //
-  phoneNumbers: number[];
+  phone_numbers: number[];
 
   @Field(() => String, {
     description: 'Address of the contact',

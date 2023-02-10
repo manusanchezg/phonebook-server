@@ -17,13 +17,13 @@ export class Contact {
     description: 'First name of the Contact',
   })
   @Column()
-  firstName: string;
+  first_name: string;
 
   @Field(() => String, {
     description: 'Last name of the Contact',
   })
   @Column()
-  lastName: string;
+  last_name: string;
 
   @Field(() => String, {
     description: 'Nickname of the Contact',
@@ -36,7 +36,7 @@ export class Contact {
     description: 'List of number of the Contact',
   })
   @Column('text', { array: true })
-  phoneNumbers: number[];
+  phone_numbers: number[];
 
   @Field(() => String, {
     description: 'Address of the contact',
@@ -51,5 +51,5 @@ export class Contact {
   photo: string;
 
   @DeleteDateColumn()
-  deletedAt?: Date;
+  deleted_at?: Date;
 }

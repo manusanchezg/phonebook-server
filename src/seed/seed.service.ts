@@ -45,10 +45,10 @@ export class SeedService {
     for (const contact of SEED_CONTACTS) {
       contacts.push(
         await this.contactService.create(
-          contact.firstName,
-          contact.lastName,
+          contact.first_name,
+          contact.last_name,
           contact.address,
-          contact.phoneNumbers,
+          contact.phone_numbers,
           contact.photo,
           contact.nickname,
         ),

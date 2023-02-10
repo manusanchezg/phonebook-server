@@ -23,25 +23,28 @@ export class ContactService {
   ) {}
 
   async create(
-    @Args('firstName', {type: () => String})
-    firstName: string,
-    @Args('lastName',  {type: () => String})
-    lastName: string,
-    @Args('address',  {type: () => String})
+    @Args('first_name', { type: () => String })
+    first_name: string,
+    @Args('last_name', { type: () => String })
+    last_name: string,
+    @Args('address', { type: () => String })
     address: string,
-    @Args('phoneNumbers', {type: () => [Float!]})
-    phoneNumbers: number[],
-    @Args('photo', {type: () => String})
+    @Args('phone_numbers', { type: () => [Float!] })
+    phone_numbers: number[],
+    @Args('photo', { type: () => String })
     photo: string,
-    @Args('nickname',  {type: () => String, nullable:true})
+    @Args('nickname', {
+      type: () => String,
+      nullable: true,
+    })
     nickname?: string,
   ): Promise<Contact> {
     const contactToCreate: CreateContactInput = {
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       nickname,
       address,
-      phoneNumbers,
+      phone_numbers,
       photo,
     };
     const contact =
@@ -59,7 +62,11 @@ export class ContactService {
     const queryBuilder = this.contactRepositry
       .createQueryBuilder()
       .take(limit)
-      .skip(offset);
+      .skip(offset)
+      .orderBy({
+        "nickname": "ASC",
+        "CONCAT(first_name, ' ' ,last_name)": "ASC",
+      })
 
     if (search)
       queryBuilder.andWhere(
@@ -95,22 +102,33 @@ export class ContactService {
   private uploadImage(file) {}
 
   async update(
-    @Args('id', {type: ()=> ID})
+    @Args('id', { type: () => ID })
     id: string,
-    @Args('firstName', {type: () => String})
-    firstName: string,
-    @Args('lastName',  {type: () => String})
-    lastName: string,
-    @Args('address',  {type: () => String})
+    @Args('first_name', { type: () => String })
+    first_name: string,
+    @Args('last_name', { type: () => String })
+    last_name: string,
+    @Args('address', { type: () => String })
     address: string,
-    @Args('phoneNumbers', {type: () => [Float!]})
-    phoneNumbers: number[],
-    @Args('photo', {type: () => String})
+    @Args('phone_numbers', { type: () => [Float!] })
+    phone_numbers: number[],
+    @Args('photo', { type: () => String })
     photo: string,
-    @Args('nickname',  {type: () => String, nullable:true})
+    @Args('nickname', {
+      type: () => String,
+      nullable: true,
+    })
     nickname?: string,
   ): Promise<Contact> {
-    const contactToUpdate = {id, firstName, lastName, address, phoneNumbers, photo, nickname}
+    const contactToUpdate = {
+      id,
+      first_name,
+      last_name,
+      address,
+      phone_numbers,
+      photo,
+      nickname,
+    };
     const contact = await this.contactRepositry.preload(
       contactToUpdate,
     );

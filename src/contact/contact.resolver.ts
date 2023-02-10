@@ -29,12 +29,12 @@ export class ContactResolver {
   async createContact(
     @Args('firstName', { type: () => String })
     firstName: string,
-    @Args('lastName', { type: () => String })
-    lastName: string,
+    @Args('last_name', { type: () => String })
+    last_name: string,
     @Args('address', { type: () => String })
     address: string,
-    @Args('phoneNumbers', { type: () => [Float!] })
-    phoneNumbers: number[],
+    @Args('phone_numbers', { type: () => [Float!] })
+    phone_numbers: number[],
     @Args('photo', { type: () => String })
     photo: string,
     @Args('nickname', { type: () => String, nullable:true })
@@ -42,9 +42,9 @@ export class ContactResolver {
   ): Promise<Contact> {
     return this.ContactService.create(
       firstName,
-      lastName,
+      last_name,
       address,
-      phoneNumbers,
+      phone_numbers,
       nickname,
       photo,
     );
@@ -73,14 +73,14 @@ export class ContactResolver {
   updateContact(
     @Args('id', {type: ()=> ID})
     id: string,
-    @Args('firstName', {type: () => String})
-    firstName: string,
-    @Args('lastName',  {type: () => String})
-    lastName: string,
+    @Args('first_name', {type: () => String})
+    first_name: string,
+    @Args('last_name',  {type: () => String})
+    last_name: string,
     @Args('address',  {type: () => String})
     address: string,
-    @Args('phoneNumbers', {type: () => [Float!]})
-    phoneNumbers: number[],
+    @Args('phone_numbers', {type: () => [Float!]})
+    phone_numbers: number[],
     @Args('photo', {type: () => String})
     photo: string,
     @Args('nickname',  {type: () => String, nullable:true})
@@ -88,16 +88,16 @@ export class ContactResolver {
   ): Promise<Contact> {
     return this.ContactService.update(
       id,
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       address,
-      phoneNumbers,
+      phone_numbers,
       photo, 
       nickname
     );
   }
 
-  @Mutation(() => Contact)
+  @Mutation(() => Contact, {name: "deleteContact"})
   async removeContact(
     @Args('id', { type: () => ID }, ParseUUIDPipe)
     id: string,

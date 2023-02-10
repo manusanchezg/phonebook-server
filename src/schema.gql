@@ -7,16 +7,16 @@ type Contact {
   id: ID!
 
   """First name of the Contact"""
-  firstName: String!
+  first_name: String!
 
   """Last name of the Contact"""
-  lastName: String!
+  last_name: String!
 
   """Nickname of the Contact"""
   nickname: String
 
   """List of number of the Contact"""
-  phoneNumbers: [Float!]!
+  phone_numbers: [Float!]!
 
   """Address of the contact"""
   address: String!
@@ -31,9 +31,9 @@ type Query {
 }
 
 type Mutation {
-  createContact(firstName: String!, lastName: String!, address: String!, phoneNumbers: [Float!]!, photo: String!, nickname: String): Contact!
-  updateContact(id: ID!, firstName: String!, lastName: String!, address: String!, phoneNumbers: [Float!]!, photo: String!, nickname: String): Contact!
-  removeContact(id: ID!): Contact!
+  createContact(firstName: String!, last_name: String!, address: String!, phone_numbers: [Float!]!, photo: String!, nickname: String): Contact!
+  updateContact(id: ID!, first_name: String!, last_name: String!, address: String!, phone_numbers: [Float!]!, photo: String!, nickname: String): Contact!
+  deleteContact(id: ID!): Contact!
 
   """Executes a demo in the database"""
   executeSeed: Boolean!
