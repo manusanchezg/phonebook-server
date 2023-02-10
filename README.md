@@ -27,3 +27,5 @@ npm run start:dev
 yarn start:dev
 ```
 6. Visit ```localhost:3333/graphql```
+
+7. Execute __mutation__ "executeSeed", to fill database with some data

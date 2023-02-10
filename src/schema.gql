@@ -34,4 +34,7 @@ type Mutation {
   createContact(firstName: String!, lastName: String!, address: String!, phoneNumbers: [Float!]!, photo: String!, nickname: String): Contact!
   updateContact(id: ID!, firstName: String!, lastName: String!, address: String!, phoneNumbers: [Float!]!, photo: String!, nickname: String): Contact!
   removeContact(id: ID!): Contact!
+
+  """Executes a demo in the database"""
+  executeSeed: Boolean!
 }

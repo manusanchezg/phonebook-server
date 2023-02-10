@@ -6,6 +6,7 @@ import { ContactResolver } from './contact.resolver';
 
 @Module({
   providers: [ContactService, ContactResolver],
-  imports: [TypeOrmModule.forFeature([Contact])]
+  imports: [TypeOrmModule.forFeature([Contact])],
+  exports: [TypeOrmModule, ContactService],
 })
 export class ContactModule {}
