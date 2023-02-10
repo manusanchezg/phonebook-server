@@ -26,4 +26,4 @@ npm run start:dev
 ```
 yarn start:dev
 ```
-6. Visit ```localhost:3000/graphql```
+6. Visit ```localhost:3333/graphql```

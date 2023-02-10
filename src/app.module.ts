@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { ContactModule } from './contact/contact.module';
 import { CommonModule } from './common/common.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { CommonModule } from './common/common.module';
     }),
     ContactModule,
     CommonModule,
+    SeedModule,
   ],
 })
 export class AppModule {}

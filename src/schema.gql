@@ -31,48 +31,7 @@ type Query {
 }
 
 type Mutation {
-  createContact(createContactInput: CreateContactInput!): Contact!
-  updateContact(updateContactInput: UpdateContactInput!): Contact!
+  createContact(firstName: String!, lastName: String!, address: String!, phoneNumbers: [Float!]!, photo: String!, nickname: String): Contact!
+  updateContact(id: ID!, firstName: String!, lastName: String!, address: String!, phoneNumbers: [Float!]!, photo: String!, nickname: String): Contact!
   removeContact(id: ID!): Contact!
-}
-
-input CreateContactInput {
-  """First name of the contact"""
-  firstName: String!
-
-  """Last name of the contact"""
-  lastName: String!
-
-  """Nickname of the contact (optional)"""
-  nickname: String
-
-  """List of phone numbers of the contact, at least one phone number"""
-  phoneNumbers: [Float!]!
-
-  """Address of the contact"""
-  address: String!
-
-  """Last name of the contact"""
-  photo: String!
-}
-
-input UpdateContactInput {
-  """First name of the contact"""
-  firstName: String
-
-  """Last name of the contact"""
-  lastName: String
-
-  """Nickname of the contact (optional)"""
-  nickname: String
-
-  """List of phone numbers of the contact, at least one phone number"""
-  phoneNumbers: [Float!]
-
-  """Address of the contact"""
-  address: String
-
-  """Last name of the contact"""
-  photo: String
-  id: ID!
 }

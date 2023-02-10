@@ -2,7 +2,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Args } from '@nestjs/graphql';
+import { Args, Float, ID, Int } from '@nestjs/graphql';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   SearchArgs,
@@ -23,13 +23,30 @@ export class ContactService {
   ) {}
 
   async create(
-    @Args('createContactInput')
-    createContactInput: CreateContactInput,
+    @Args('firstName', {type: () => String})
+    firstName: string,
+    @Args('lastName',  {type: () => String})
+    lastName: string,
+    @Args('address',  {type: () => String})
+    address: string,
+    @Args('phoneNumbers', {type: () => [Float!]})
+    phoneNumbers: number[],
+    @Args('photo', {type: () => String})
+    photo: string,
+    @Args('nickname',  {type: () => String, nullable:true})
+    nickname?: string,
   ): Promise<Contact> {
-    const contact = this.contactRepositry.create(
-      createContactInput,
-    );
-    return await this.contactRepositry.save(contact)
+    const contactToCreate: CreateContactInput = {
+      firstName,
+      lastName,
+      nickname,
+      address,
+      phoneNumbers,
+      photo,
+    };
+    const contact =
+      this.contactRepositry.create(contactToCreate);
+    return await this.contactRepositry.save(contact);
   }
 
   async findAll(
@@ -78,11 +95,24 @@ export class ContactService {
   private uploadImage(file) {}
 
   async update(
+    @Args('id', {type: ()=> ID})
     id: string,
-    updateContactInput: UpdateContactInput,
+    @Args('firstName', {type: () => String})
+    firstName: string,
+    @Args('lastName',  {type: () => String})
+    lastName: string,
+    @Args('address',  {type: () => String})
+    address: string,
+    @Args('phoneNumbers', {type: () => [Float!]})
+    phoneNumbers: number[],
+    @Args('photo', {type: () => String})
+    photo: string,
+    @Args('nickname',  {type: () => String, nullable:true})
+    nickname?: string,
   ): Promise<Contact> {
+    const contactToUpdate = {id, firstName, lastName, address, phoneNumbers, photo, nickname}
     const contact = await this.contactRepositry.preload(
-      updateContactInput,
+      contactToUpdate,
     );
     if (!contact)
       throw new NotFoundException(

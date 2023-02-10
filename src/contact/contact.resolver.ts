@@ -4,6 +4,8 @@ import {
   Mutation,
   Args,
   ID,
+  Int,
+  Float,
 } from '@nestjs/graphql';
 import { ContactService } from './contact.service';
 import { Contact } from './entities/contact.entity';
@@ -12,7 +14,10 @@ import {
   CreateContactInput,
 } from './dto/inputs';
 import { ParseUUIDPipe } from '@nestjs/common';
-import { PaginationArgs, SearchArgs } from 'src/common/dto/args';
+import {
+  PaginationArgs,
+  SearchArgs,
+} from 'src/common/dto/args';
 
 @Resolver(() => Contact)
 export class ContactResolver {
@@ -22,10 +27,27 @@ export class ContactResolver {
 
   @Mutation(() => Contact)
   async createContact(
-    @Args('createContactInput')
-    createContactInput: CreateContactInput,
+    @Args('firstName', { type: () => String })
+    firstName: string,
+    @Args('lastName', { type: () => String })
+    lastName: string,
+    @Args('address', { type: () => String })
+    address: string,
+    @Args('phoneNumbers', { type: () => [Float!] })
+    phoneNumbers: number[],
+    @Args('photo', { type: () => String })
+    photo: string,
+    @Args('nickname', { type: () => String, nullable:true })
+    nickname?: string,
   ): Promise<Contact> {
-    return this.ContactService.create(createContactInput);
+    return this.ContactService.create(
+      firstName,
+      lastName,
+      address,
+      phoneNumbers,
+      nickname,
+      photo,
+    );
   }
 
   @Query(() => [Contact], { name: 'contacts' })
@@ -33,7 +55,10 @@ export class ContactResolver {
     @Args() paginationArgs: PaginationArgs,
     @Args() searchArgs: SearchArgs,
   ): Promise<Contact[]> {
-    return this.ContactService.findAll(paginationArgs, searchArgs);
+    return this.ContactService.findAll(
+      paginationArgs,
+      searchArgs,
+    );
   }
 
   @Query(() => Contact, { name: 'Contact' })
@@ -46,12 +71,29 @@ export class ContactResolver {
 
   @Mutation(() => Contact)
   updateContact(
-    @Args('updateContactInput')
-    updateContactInput: UpdateContactInput,
+    @Args('id', {type: ()=> ID})
+    id: string,
+    @Args('firstName', {type: () => String})
+    firstName: string,
+    @Args('lastName',  {type: () => String})
+    lastName: string,
+    @Args('address',  {type: () => String})
+    address: string,
+    @Args('phoneNumbers', {type: () => [Float!]})
+    phoneNumbers: number[],
+    @Args('photo', {type: () => String})
+    photo: string,
+    @Args('nickname',  {type: () => String, nullable:true})
+    nickname?: string,
   ): Promise<Contact> {
     return this.ContactService.update(
-      updateContactInput.id,
-      updateContactInput,
+      id,
+      firstName,
+      lastName,
+      address,
+      phoneNumbers,
+      photo, 
+      nickname
     );
   }
 

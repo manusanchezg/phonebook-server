@@ -28,14 +28,14 @@ export class CreateContactInput {
   @IsString()
   nickname?: string;
 
-  @Field(() => [Number], {
+  @Field(() => [Number!], {
     description:
       'List of phone numbers of the contact, at least one phone number',
   })
   @IsNotEmpty()
   // @IsPhoneNumber()
   // -------- Need to Check the number ---------- //
-  phoneNumbers: number[]; // [PhoneNumber] ? possible?
+  phoneNumbers: number[];
 
   @Field(() => String, {
     description: 'Address of the contact',
