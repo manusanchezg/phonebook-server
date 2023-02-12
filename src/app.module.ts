@@ -11,7 +11,6 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { ContactModule } from './contact/contact.module';
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
-import { ServiceModule } from './service/service.module';
 
 @Module({
   imports: [
@@ -37,7 +36,6 @@ import { ServiceModule } from './service/service.module';
     ContactModule,
     CommonModule,
     SeedModule,
-    ServiceModule,
   ],
 })
 export class AppModule {}
