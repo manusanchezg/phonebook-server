@@ -70,8 +70,8 @@ export class ContactService {
 
     if (search)
       queryBuilder.andWhere(
-        `LOWER("firstName") like :name OR
-         LOWER("lastName") like :name OR
+        `LOWER("first_name") like :name OR
+         LOWER("last_name") like :name OR
          LOWER("nickname") like :name`,
         {
           name: `%${search.toLocaleLowerCase()}%`,
@@ -83,7 +83,7 @@ export class ContactService {
     //   take: limit,
     //   skip: offset,
     //   where: {
-    //     firstName: Like(`%${search}%`)
+    //     first_name: Like(`%${search}%`)
     //   }
     // });
   }

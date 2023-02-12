@@ -3,38 +3,73 @@
 # ------------------------------------------------------
 
 type Contact {
-  """UUID of the contact"""
+  """
+  UUID of the contact
+  """
   id: ID!
 
-  """First name of the Contact"""
+  """
+  First name of the Contact
+  """
   first_name: String!
 
-  """Last name of the Contact"""
+  """
+  Last name of the Contact
+  """
   last_name: String!
 
-  """Nickname of the Contact"""
+  """
+  Nickname of the Contact
+  """
   nickname: String
 
-  """List of number of the Contact"""
+  """
+  List of number of the Contact
+  """
   phone_numbers: [Float!]!
 
-  """Address of the contact"""
+  """
+  Address of the contact
+  """
   address: String!
 
-  """A picture of the contact"""
+  """
+  A picture of the contact
+  """
   photo: String!
 }
 
 type Query {
-  contacts(offset: Int = 0, limit: Int = 10, search: String): [Contact!]!
+  contacts(
+    offset: Int = 0
+    limit: Int = 10
+    search: String
+  ): [Contact!]!
   Contact(id: ID!): Contact!
 }
 
 type Mutation {
-  createContact(firstName: String!, last_name: String!, address: String!, phone_numbers: [Float!]!, photo: String!, nickname: String): Contact!
-  updateContact(id: ID!, first_name: String!, last_name: String!, address: String!, phone_numbers: [Float!]!, photo: String!, nickname: String): Contact!
+  createContact(
+    first_name: String!
+    last_name: String!
+    address: String!
+    phone_numbers: [Float!]!
+    photo: String!
+    nickname: String
+  ): Contact!
+  updateContact(
+    id: ID!
+    first_name: String!
+    last_name: String!
+    address: String!
+    phone_numbers: [Float!]!
+    photo: String!
+    nickname: String
+  ): Contact!
   deleteContact(id: ID!): Contact!
 
-  """Executes a demo in the database"""
+  """
+  Executes a demo in the database
+  """
   executeSeed: Boolean!
 }

@@ -27,8 +27,8 @@ export class ContactResolver {
 
   @Mutation(() => Contact)
   async createContact(
-    @Args('firstName', { type: () => String })
-    firstName: string,
+    @Args('first_name', { type: () => String })
+    first_name: string,
     @Args('last_name', { type: () => String })
     last_name: string,
     @Args('address', { type: () => String })
@@ -41,7 +41,7 @@ export class ContactResolver {
     nickname?: string,
   ): Promise<Contact> {
     return this.ContactService.create(
-      firstName,
+      first_name,
       last_name,
       address,
       phone_numbers,
