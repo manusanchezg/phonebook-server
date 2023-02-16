@@ -99,8 +99,6 @@ export class ContactService {
     return contact;
   }
 
-  private uploadImage(file) {}
-
   async update(
     @Args('id', { type: () => ID })
     id: string,
