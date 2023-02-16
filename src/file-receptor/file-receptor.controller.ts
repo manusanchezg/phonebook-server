@@ -19,9 +19,9 @@ export class FileReceptorController {
   async uploadFileAndPassValidation(
     @UploadedFile(
       new ParseFilePipeBuilder()
-        .addFileTypeValidator({
-          fileType: 'png',
-        })
+        // .addFileTypeValidator({
+        //   fileType: 'png',
+        // })
         // .addFileTypeValidator({
         //   fileType: 'jpg',
         // })

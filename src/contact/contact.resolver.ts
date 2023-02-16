@@ -45,8 +45,8 @@ export class ContactResolver {
       last_name,
       address,
       phone_numbers,
-      nickname,
       photo,
+      nickname,
     );
   }
 

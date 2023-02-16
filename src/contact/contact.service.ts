@@ -42,10 +42,10 @@ export class ContactService {
     const contactToCreate: CreateContactInput = {
       first_name,
       last_name,
-      nickname,
       address,
       phone_numbers,
       photo,
+      nickname,
     };
     const contact =
       this.contactRepositry.create(contactToCreate);
@@ -79,13 +79,6 @@ export class ContactService {
       );
 
     return queryBuilder.getMany();
-    // return this.contactRepositry.find({
-    //   take: limit,
-    //   skip: offset,
-    //   where: {
-    //     first_name: Like(`%${search}%`)
-    //   }
-    // });
   }
 
   async findOne(id: string): Promise<Contact> {

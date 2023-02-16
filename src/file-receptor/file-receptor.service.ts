@@ -3,7 +3,6 @@ import { S3ServiceService } from 'src/s3-service/s3-service.service';
 
 @Injectable()
 export class FileReceptorService {
-  // TODO S3 Service
   constructor(
     private readonly s3Service: S3ServiceService,
   ) {}

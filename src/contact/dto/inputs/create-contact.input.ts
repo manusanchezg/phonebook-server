@@ -49,6 +49,5 @@ export class CreateContactInput {
   })
   @IsNotEmpty()
   @IsString()
-  // Need to chec the image //
   photo: string;
 }
